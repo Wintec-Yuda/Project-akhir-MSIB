@@ -43,7 +43,9 @@ body{
     
     
     .search-icon {
-            height: 34px;
+      border: none;
+      outline: none;
+        height: 34px;
         width: 34px;
         float: right;
         display: flex;
@@ -55,6 +57,11 @@ body{
             bottom: 30px;
             position: relative;
             border-radius: 5px;
+    }
+
+    .search-icon:focus {
+      border: none;
+      outline: none;
     }
     
     .search-icon:hover{
@@ -80,7 +87,7 @@ body{
         border-radius: .25rem;
         border:none;
         cursor: pointer;
-        transition: all 2s;
+        transition: all 0.5s;
     }
     
     
@@ -100,3 +107,4 @@ body{
     
       line-height: 14px;
     }
+    
