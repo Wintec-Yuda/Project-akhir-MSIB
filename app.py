@@ -30,11 +30,20 @@ def get_title():
 def get_recommend():
     if request.method == 'POST':
         title = request.form['book']
+        mode = request.form['mode']
 
         print(title)
+        print(mode)
 
+        if mode == '1':
+            print("Content-Based")
+        #     novels = content_based(title)
+        elif mode == '2':
+            print("Item-Based")
+        #     novels = item_based(title)
+        
         return jsonify({
-            "data": "Data received"
+            "data": "GOGOGO"
         })
 
 

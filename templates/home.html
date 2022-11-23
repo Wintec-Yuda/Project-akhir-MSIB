@@ -27,14 +27,21 @@
                         <h2 class="heading mt-5 text-center">
                             Cari Buku Kesukaanmu
                         </h2> 
-                        <div class="d-flex justify-content-center px-5 pb-5"> 
+                        <div class="d-flex justify-content-center px-5"> 
                             <div class="search autocomplete"> 
                                 <input type="text" class="search-input" placeholder="Search..." name="" id="input-title"> 
                                 <button class="search-icon" id="search-btn"> 
                                     <i class="fa fa-search"></i> 
                                 </button> 
                             </div> 
-                        </div> 
+                        </div>
+                        <div class="d-flex justify-content-center px-5">
+                            <select class="selectpicker form-control" id="mode-select">
+                                <option value="" selected>Pilih Jenis Rekomendasi</option>
+                                <option value="1">Content-Based</option>
+                                <option value="2">Item-Based</option>
+                            </select>
+                        </div>
                     </div> 
 
                     <div class="card small-container p-4 my-3" id="populer-holder" style="display : none">

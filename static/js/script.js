@@ -57,17 +57,25 @@ $(document).ready(function () {
 
     $("#search-btn").click(function (e) {
         e.preventDefault();
-        $("#input-title").val("")
-        if (title != "") {
+        var selected_mode = $('#mode-select option:selected').val();
+        if (title != "" && selected_mode !="") {
+            $("#input-title").val("")
             $.post("/get_recommend", {
-                book: title
+                book: title,
+                mode: selected_mode
             }, function (data, status) {
                 console.log("Data: " + data["data"] + "\nStatus: " + status);
             });
 
             $('html, body').animate({
                 scrollTop: $("#recommend-holder").offset().top
-            }, 2000);
+            }, 1000);
+        } else if (title != ""){
+            alert("Pilih Mode Rekomendasi")
+        } else if (selected_mode != ""){
+            alert("Masukkan Judul")
+        } else {
+            alert("Masukkan Judul dan Pilih Mode Rekomendasi")
         }
     });
 
