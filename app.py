@@ -2,16 +2,9 @@ from flask import Flask, render_template, request, jsonify
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
-import mysql.connector as db
 import re
 
 app = Flask(__name__, static_url_path='/static')
-mydb = db.connect(
-  host="localhost",
-  user="root",
-  password="",
-  database="novel_recommender"
-)
 
 
 @app.route('/')
@@ -23,13 +16,12 @@ def home():
 def get_title():
     if request.method == 'POST':
         title = request.form['book']
-        mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT title FROM books WHERE books.title LIKE '%{title}%' LIMIT 20")
-        myresult = mycursor.fetchall()
-
+        mask = books['title'].str.contains(f".{title}.", flags=re.IGNORECASE)
+        myresult = books[mask]
         titleList = []
-        for book in myresult:
-            titleList.append(book[0])
+        
+        for book in myresult["title"]:
+            titleList.append(book)
 
         return jsonify({
             "data": titleList
@@ -182,10 +174,10 @@ def item_based(bookTitle):
         return {"status": "na", "data": None}
 
 if __name__ == '__main__':
-    books = pd.read_sql("SELECT * FROM books", mydb)
+    books = pd.read_csv("model/data/book-new.csv", delimiter='\t')
     books.rename(columns= {'isbn':'ISBN'}, inplace=True)
     ratings = pd.read_csv("model/data/Ratings.csv")
-
+    
     books_data = books.merge(ratings, on="ISBN")
     df = books_data.copy()
     df.dropna(inplace=True)
