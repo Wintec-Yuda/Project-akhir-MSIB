@@ -15,7 +15,7 @@ $(document).ready(function () {
                             </span> 
                         </div>
                         <div class="text-center"> 
-                            <span id="rating">
+                            <span class="rating">
                                 Rating : `+value[1]+`
                             </span> 
                         </div> 
@@ -24,7 +24,7 @@ $(document).ready(function () {
             </div>
             `)
         });
-        $("#populer-holder").css("display", "block");
+        $(".pre-populer").css("display", "none");
     });
 
     jQuery.ui.autocomplete.prototype._resizeMenu = function () {
@@ -36,7 +36,7 @@ $(document).ready(function () {
         title = $(this).val().toLowerCase();
         titleList = []
 
-        if (title.length%3 == 0){
+        if (title.length%4 == 0){
             $.post("/get_title", {
                 book: title
             }, function (data, status) {
@@ -59,12 +59,46 @@ $(document).ready(function () {
         e.preventDefault();
         var selected_mode = $('#mode-select option:selected').val();
         if (title != "" && selected_mode !="") {
-            $("#input-title").val("")
+            $("#recommend-holder").css("display", "block");
+            $("#input-title").val("");
+            $('#mode-select').prop('selectedIndex',0);
             $.post("/get_recommend", {
                 book: title,
                 mode: selected_mode
             }, function (data, status) {
-                console.log("Data: " + data["data"] + "\nStatus: " + status);
+                var result_status = data["book-status"];
+                var text = "";
+                if (result_status == "normal"){
+                    text = "Jika anda menyukai <b>" +title+ "</b>, anda mungkin juga menyukai";
+                } else if (result_status == "na"){
+                    text = "Tidak ditemukan rekomendasi untuk buku <b>" +title+"</b>";
+                } else if (result_status == "rare"){
+                    text = "Buku <b>" +title+ "</b> adalah buku yang jarang, anda mungkin bisa mencoba";
+                }
+
+                $("#recommend-card").append(`<h6 class="text-center book-status">`+text+`</h6>`);
+                $.each(data["data"], function (key, value) {
+                    $("#recommend-card").append(`
+                    <div class="col-lg-3 p-1">
+                        <div class="card-inner p-3 d-flex flex-column align-items-center h-100"> 
+                            <img class="rounded img-fluid" src="`+value[2]+`" style="height: 210px !important;">
+                            <div class="align-self-center h-100">
+                                <div class="text-center mg-text"> 
+                                    <span class="mg-text">
+                                        `+value[0]+`
+                                    </span> 
+                                </div>
+                                <div class="text-center"> 
+                                    <span class="rating">
+                                        Rating : `+value[1]+`
+                                    </span> 
+                                </div> 
+                            </div>
+                        </div> 
+                    </div>
+                    `)
+                });
+                $(".pre-recommend").css("display", "none");
             });
 
             $('html, body').animate({

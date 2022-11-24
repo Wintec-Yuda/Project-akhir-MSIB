@@ -42,17 +42,23 @@ def get_recommend():
         title = request.form['book']
         mode = request.form['mode']
 
-        print(title)
-        print(mode)
-
         if mode == '1':
             result = content_based(title)
         elif mode == '2':
             result = item_based(title)
         
+        recommend = result["data"]
+        recList = []
+        if recommend != None:
+            for i in range(len(recommend)):
+                title = recommend[i]
+                url = df.loc[df["title"]==recommend[i],"image_l"][:1].values[0]
+                rating = round(df[df["title"]==recommend[i]]["Book-Rating"].mean(),2)
+                recList.append([title, rating, url])
+        
         return jsonify({
             "book-status": result["status"],
-            "data": result["data"]
+            "data": recList
         })
 
 
@@ -109,8 +115,8 @@ def content_based(bookTitle):
 
         if bookTitle in rare_books:
             most_common = pd.Series(
-                common_books["title"].unique()).sample(3).values
-            return {"status": "rare", "data": most_common}
+                common_books["title"].unique()).sample(4).values
+            return {"status": "rare", "data": most_common.tolist()}
         else:
             common_books = common_books.drop_duplicates(subset=["title"])
             common_books.reset_index(inplace=True)
@@ -132,7 +138,7 @@ def content_based(bookTitle):
                 books.append(common_books[common_books["index"] ==
                              similar_booksSorted[i][0]]["title"].item())
 
-            return {"status": "normal", "data": books}
+            return {"status": "normal", "data": books[:4]}
 
     else:
         return {"status": "na", "data": None}
@@ -148,8 +154,8 @@ def item_based(bookTitle):
 
         if bookTitle in rare_books:
             most_common = pd.Series(
-                common_books["title"].unique()).sample(3).values
-            return {"status": "rare", "data": most_common}
+                common_books["title"].unique()).sample(4).values
+            return {"status": "rare", "data": most_common.tolist()}
         else:
             common_books_pivot = common_books.pivot_table(
                 index=["User-ID"], columns=["title"], values="Book-Rating")
@@ -170,7 +176,8 @@ def item_based(bookTitle):
 
             recommendation_df = recommendation_df[0:5]
             recommendation_df.columns = ["title", "Correlation"]
-            return {"status": "normal", "data": recommendation_df["title"].tolist()}
+            ret = recommendation_df["title"].tolist()
+            return {"status": "normal", "data": ret[:4]}
     else:
         return {"status": "na", "data": None}
 
