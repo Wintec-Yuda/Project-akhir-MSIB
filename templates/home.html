@@ -17,13 +17,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css" integrity="sha512-hbs/7O+vqWZS49DulqH1n2lVtu63t3c3MTAn0oYMINS5aT8eIAbJGDXgLt6IxDHcWyzVTgf9XyzZ9iWyVQ7mCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+        
         <link rel="stylesheet" href={{ url_for('static', filename='/css/style.css') }} type="text/css">
     </head>
     <body>
-        <div class="container mt-4"> 
+
+        <div class="container"> 
             <div class="row d-flex justify-content-center"> 
                 <div class="col-md-9"> 
-                    <div class="card small-container p-4 mt-3"> 
+                        <div class="topnav" id="myTopnav">
+                            <a href="#home" class="active">BRAND NAME</a>
+                            <a href="#" style="float: right;">ABOUT</a>
+                            <a href="javascript:void(0);" class="icon" id="menu-bar">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                    <div class="card small-container p-4 mt-4"> 
+
+                        
                         <h2 class="heading mt-5 text-center">
                             Cari Buku Kesukaanmu
                         </h2> 

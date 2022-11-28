@@ -170,3 +170,59 @@ a {
   font-weight: 400;
   margin-bottom: 30px;
 }
+
+.topnav {
+  background-color: #eee;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.topnav a {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-weight: bold;
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: #536bf6;
+}
+
+
+.topnav a.active {
+  background-color: #536bf6;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none !important;
+    display: block;
+    text-align: center;
+  }
+}
