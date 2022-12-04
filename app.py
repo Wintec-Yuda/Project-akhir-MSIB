@@ -12,6 +12,11 @@ def home():
     return render_template("home.html")
 
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+
 @app.route('/get_title', methods=['GET', 'POST'])
 def get_title():
     if request.method == 'POST':

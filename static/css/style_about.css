@@ -1,0 +1,98 @@
+body {
+  background-image: url('../img/bg.jpg');
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card {
+  border: none;
+  background: #eee;
+
+}
+
+.card-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 250px;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.small-container{
+  opacity: 85%;
+  border-radius: 20px;
+
+}
+
+.topnav {
+  background-color: #eee;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.topnav a {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-weight: bold;
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: #536bf6;
+}
+
+
+.topnav a.active {
+  background-color: #536bf6;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none !important;
+    display: block;
+    text-align: center;
+  }
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: 225px;
+    object-fit: cover;
+}

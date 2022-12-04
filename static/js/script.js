@@ -76,6 +76,7 @@ $(document).ready(function () {
                     text = "Buku <b>" +title+ "</b> adalah buku yang jarang, anda mungkin bisa mencoba";
                 }
 
+                $("#recommend-card").empty();
                 $("#recommend-card").append(`<h6 class="text-center book-status">`+text+`</h6>`);
                 $.each(data["data"], function (key, value) {
                     $("#recommend-card").append(`
